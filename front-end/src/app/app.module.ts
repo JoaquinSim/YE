@@ -31,7 +31,7 @@ import { VotosComponent } from './components/votos/votos.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [LoginService],
+  providers: [LoginService, UsersComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

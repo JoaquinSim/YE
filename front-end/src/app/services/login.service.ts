@@ -4,6 +4,8 @@ import { JwtResponseI } from '../interfaces/jwt-response';
 import { User} from '../models/user';
 import {tap} from 'rxjs/operators';
 import {Observable, BehaviorSubject} from 'rxjs';
+import { UserService } from './user.service';
+
 @Injectable()
 
 export class LoginService {
@@ -12,7 +14,8 @@ export class LoginService {
   authSubject = new BehaviorSubject(false);
   private token!: string;
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,
+    private _userService: UserService) { }
 
   register (user : User): Observable<JwtResponseI> {
     return this.httpClient.post<JwtResponseI>(`${this.AUTH_SERVER}`,
@@ -45,7 +48,8 @@ export class LoginService {
     localStorage.removeItem("ACCESS_TOKEN");
     localStorage.removeItem("EXPIRES_IN");
     localStorage.removeItem("ROL");
-    localStorage.removeItem("User");
+   localStorage. removeItem("User");
+   localStorage. removeItem("STATE");
   }
 
   private saveToken(token:string, expiresIn : string, rol: string, estado: any):void{
@@ -62,10 +66,10 @@ export class LoginService {
 
   getUser(): any{
     const state = localStorage.getItem('STATE');
-    const user = localStorage.getItem('User')
-    let a = {
+    const user = localStorage.getItem('User');
+    let a : any= {
       user,
-      state
+      state: true,
     }
     return a
   }
