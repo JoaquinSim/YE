@@ -7,6 +7,7 @@ import { List } from 'src/app/models/list';
 import { ListService } from 'src/app/services/list.service';
 import Swal from 'sweetalert2';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-votos',
@@ -16,7 +17,7 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class VotosComponent implements OnInit {
   constructor(public listService: ListService, public userService:UserService,
-     public _loginService: LoginService) { }
+     public _loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.storageUser()
@@ -67,6 +68,7 @@ export class VotosComponent implements OnInit {
 
 
   votar(list: List){
+
     const a = this._loginService.getUser();
     a.state = 'true';
 
@@ -91,6 +93,8 @@ export class VotosComponent implements OnInit {
         this.listService.putList(lista)
         .subscribe(res =>{
         this.getLists()
+        this.router.navigate(['/login']);
+        this._loginService.logOut();
     })
         Swal.fire('Usted a votado!', '', 'success')
       } else if (result.isDenied) {

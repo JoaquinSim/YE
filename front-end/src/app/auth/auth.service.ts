@@ -12,10 +12,9 @@ export class AuthService {
 
   isLoggedIn() {
     const token: any = localStorage.getItem('ACCESS_TOKEN');
-/*
     if (!token) {
       alert('Debe iniciar sesion ')
-    }*/
+    }
     return token;
   }
 

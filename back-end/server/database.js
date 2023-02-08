@@ -6,6 +6,12 @@ mongoose.connect(URI)
 .then(db => console.log('DB is connected'))
 .catch(err => console.error(err));
 
+mongoose.set("strictQuery", false);
+mongoose.connect(URI, {
+  useNewUrlParser: true,
+  ssl: true,
+  sslValidate: false,
+});
 
 
 
